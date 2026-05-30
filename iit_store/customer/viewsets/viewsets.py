@@ -148,3 +148,48 @@ class PaiementViewSet(viewsets.ModelViewSet):
         if self.request.user.is_staff:
             return qs
         return qs.filter(commande__user=self.request.user)
+
+
+# ─── GEOGRAPHY SERIALIZERS & VIEWSETS (cities_light) ─────────────────────────
+from rest_framework import serializers
+from cities_light.models import Country, Region, City
+
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ["id", "name", "code2"]
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region
+        fields = ["id", "name", "country"]
+
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ["id", "name", "region", "country"]
+
+
+class CountryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Country.objects.all().order_by("name")
+    serializer_class = CountrySerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class RegionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Region.objects.all().order_by("name")
+    serializer_class = RegionSerializer
+    permission_classes = [permissions.AllowAny]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["country"]
+
+
+class CityViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = City.objects.all().order_by("name")
+    serializer_class = CitySerializer
+    permission_classes = [permissions.AllowAny]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["region", "country"]

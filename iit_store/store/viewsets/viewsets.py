@@ -34,17 +34,46 @@ class PanierViewSet(viewsets.GenericViewSet):
     """
 
     serializer_class = PanierSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
+
+    def _get_or_create_panier(self, request):
+        session_key = request.headers.get("X-Session-Key") or request.query_params.get("session_key")
+        
+        if request.user.is_authenticated:
+            panier, _ = Panier.objects.get_or_create(user=request.user)
+            # Fusion automatique si une clé de session anonyme est transmise
+            if session_key:
+                try:
+                    session_panier = Panier.objects.get(session_key=session_key)
+                    for item in session_panier.items.all():
+                        user_item, created = PanierItem.objects.get_or_create(
+                            panier=panier,
+                            produit=item.produit,
+                            defaults={"prix_unitaire": item.prix_unitaire, "quantite": item.quantite}
+                        )
+                        if not created:
+                            user_item.quantite += item.quantite
+                            user_item.save()
+                    session_panier.delete()
+                except Panier.DoesNotExist:
+                    pass
+            return panier
+        else:
+            if not session_key:
+                # Clé de repli par défaut pour éviter les crashs si non fournie
+                session_key = "anonymous_session_default"
+            panier, _ = Panier.objects.get_or_create(session_key=session_key)
+            return panier
 
     def get_queryset(self):
-        return Panier.objects.filter(user=self.request.user).prefetch_related(
-            "items__produit"
-        )
+        # Récupération dynamique
+        panier = self._get_or_create_panier(self.request)
+        return Panier.objects.filter(pk=panier.pk).prefetch_related("items__produit")
 
     @action(detail=False, methods=["get"], url_path="mon-panier")
     def mon_panier(self, request):
-        """Retourne ou crée le panier de l'utilisateur courant en synchronisant les prix."""
-        panier, _ = Panier.objects.get_or_create(user=request.user)
+        """Retourne ou crée le panier courant en synchronisant les prix."""
+        panier = self._get_or_create_panier(request)
         # Synchronisation dynamique des prix en base de données
         for item in panier.items.all():
             if item.prix_unitaire != item.produit.prix_effectif:
@@ -72,7 +101,7 @@ class PanierViewSet(viewsets.GenericViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        panier, _ = Panier.objects.get_or_create(user=request.user)
+        panier = self._get_or_create_panier(request)
         item, created = PanierItem.objects.get_or_create(
             panier=panier,
             produit=produit,
@@ -89,11 +118,11 @@ class PanierViewSet(viewsets.GenericViewSet):
     def retirer(self, request):
         """Retire un article du panier."""
         item_id = request.data.get("item_id")
+        panier = self._get_or_create_panier(request)
         try:
-            panier = Panier.objects.get(user=request.user)
             item = PanierItem.objects.get(pk=item_id, panier=panier)
             item.delete()
-        except (Panier.DoesNotExist, PanierItem.DoesNotExist):
+        except PanierItem.DoesNotExist:
             return Response(
                 {"detail": "Article introuvable."}, status=status.HTTP_404_NOT_FOUND
             )
@@ -103,11 +132,8 @@ class PanierViewSet(viewsets.GenericViewSet):
     @action(detail=False, methods=["post"], url_path="vider")
     def vider(self, request):
         """Vide entièrement le panier."""
-        try:
-            panier = Panier.objects.get(user=request.user)
-            panier.items.all().delete()
-        except Panier.DoesNotExist:
-            pass
+        panier = self._get_or_create_panier(request)
+        panier.items.all().delete()
         return Response({"detail": "Panier vidé."})
 
 
