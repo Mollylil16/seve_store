@@ -588,18 +588,18 @@ export default function App() {
               <div className="filter-group">
                 <input 
                   type="number" 
-                  placeholder="Min €" 
+                  placeholder="Min FCFA" 
                   className="filter-input"
-                  style={{ width: '80px' }}
+                  style={{ width: '100px' }}
                   value={priceMin}
                   onChange={(e) => setPriceMin(e.target.value)}
                 />
                 <span>à</span>
                 <input 
                   type="number" 
-                  placeholder="Max €" 
+                  placeholder="Max FCFA" 
                   className="filter-input"
-                  style={{ width: '80px' }}
+                  style={{ width: '100px' }}
                   value={priceMax}
                   onChange={(e) => setPriceMax(e.target.value)}
                 />
@@ -668,11 +668,11 @@ export default function App() {
                       <div className="product-price">
                         {p.prix_promo ? (
                           <>
-                            <span className="price-promo">{p.prix_promo} €</span>
-                            <span className="price-original">{p.prix} €</span>
+                            <span className="price-promo">{p.prix_promo} FCFA</span>
+                            <span className="price-original">{p.prix} FCFA</span>
                           </>
                         ) : (
-                          <span>{p.prix} €</span>
+                          <span>{p.prix} FCFA</span>
                         )}
                       </div>
                       
@@ -748,12 +748,12 @@ export default function App() {
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                   <div className="form-group">
-                    <label>Prix (€)</label>
-                    <input type="number" step="0.01" required className="form-input" placeholder="36.00" value={newProductPrice} onChange={(e) => setNewProductPrice(e.target.value)} />
+                    <label>Prix (FCFA)</label>
+                    <input type="number" required className="form-input" placeholder="25000" value={newProductPrice} onChange={(e) => setNewProductPrice(e.target.value)} />
                   </div>
                   <div className="form-group">
-                    <label>Prix Promo (€)</label>
-                    <input type="number" step="0.01" className="form-input" placeholder="Facultatif" value={newProductPromo} onChange={(e) => setNewProductPromo(e.target.value)} />
+                    <label>Prix Promo (FCFA)</label>
+                    <input type="number" className="form-input" placeholder="Facultatif" value={newProductPromo} onChange={(e) => setNewProductPromo(e.target.value)} />
                   </div>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '10px' }}>
@@ -784,7 +784,7 @@ export default function App() {
                 <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid rgba(11, 48, 35, 0.08)' }}>
                   <BarChart2 size={24} style={{ color: 'var(--primary-green)', marginBottom: '10px' }} />
                   <div style={{ fontSize: '12px', fontWeight: '600', opacity: 0.6 }}>CHIFFRE D'AFFAIRES</div>
-                  <div style={{ fontSize: '28px', fontWeight: '700', color: 'var(--primary-green)' }}>1 840,00 €</div>
+                  <div style={{ fontSize: '28px', fontWeight: '700', color: 'var(--primary-green)' }}>1 840 000 FCFA</div>
                 </div>
                 <div style={{ background: 'white', padding: '24px', borderRadius: '12px', border: '1px solid rgba(11, 48, 35, 0.08)' }}>
                   <ShoppingBag size={24} style={{ color: 'var(--primary-green)', marginBottom: '10px' }} />
@@ -816,7 +816,7 @@ export default function App() {
                     {vendorProducts.map(p => (
                       <tr key={p.id} style={{ borderBottom: '1px solid rgba(11, 48, 35, 0.05)' }}>
                         <td style={{ padding: '16px 20px', fontWeight: '600', color: 'var(--primary-green)' }}>{p.nom}</td>
-                        <td style={{ padding: '16px 20px' }}>{p.prix_effectif} €</td>
+                        <td style={{ padding: '16px 20px' }}>{p.prix_effectif} FCFA</td>
                         <td style={{ padding: '16px 20px' }}>
                           <span style={{ padding: '4px 8px', background: p.stock > 0 ? '#e3f2fd' : '#ffebee', color: p.stock > 0 ? '#0d47a1' : '#c62828', borderRadius: '4px', fontWeight: '600' }}>
                             {p.stock} U
@@ -856,7 +856,7 @@ export default function App() {
                   />
                   <div className="cart-item-info">
                     <h4 className="cart-item-title">{item.produit_nom}</h4>
-                    <span className="cart-item-price">{item.prix_unitaire} €</span>
+                    <span className="cart-item-price">{item.prix_unitaire} FCFA</span>
                     <div className="cart-item-qty">
                       <button className="qty-btn" onClick={() => removeFromCart(item.id)}><Minus size={12} /></button>
                       <span>{item.quantite}</span>
@@ -877,7 +877,7 @@ export default function App() {
             <div className="cart-footer">
               <div className="cart-total-row">
                 <span>Sous-total</span>
-                <span>{cart.total} €</span>
+                <span>{cart.total} FCFA</span>
               </div>
               <div style={{ display: 'flex', gap: '15px' }}>
                 <button className="btn-outline" style={{ flex: 1 }} onClick={clearCart}>VIDER</button>
@@ -1116,7 +1116,7 @@ export default function App() {
               <div style={{ borderTop: '1px solid rgba(11, 48, 35, 0.08)', paddingTop: '20px' }}>
                 <div className="cart-total-row" style={{ marginBottom: '20px' }}>
                   <span>Total à régler</span>
-                  <span>{cart ? cart.total : 0} €</span>
+                  <span>{cart ? cart.total : 0} FCFA</span>
                 </div>
                 <button type="submit" className="btn-solid" style={{ width: '100%' }}>
                   AUTORISER LA TRANSACTION
