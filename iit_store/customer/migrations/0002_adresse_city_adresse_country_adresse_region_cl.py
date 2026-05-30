@@ -6,7 +6,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cities_light", "0014_alter_city_search_names"),
+        ("cities_light", "0013_alter_city_alternate_names_alter_city_country_and_more"),
         ("customer", "0001_initial"),
     ]
 

@@ -60,10 +60,7 @@ export default function App() {
   const [selectedCity, setSelectedCity] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   
-  const [paymentMethod, setPaymentMethod] = useState('stripe'); // 'stripe' | 'wave'
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardExpiry, setCardExpiry] = useState('');
-  const [cardCvc, setCardCvc] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('wave'); // 'wave' | 'orange' | 'mtn_moov'
   const [mobileNumber, setMobileNumber] = useState('');
   const [isPaying, setIsPaying] = useState(false);
   
@@ -1035,53 +1032,85 @@ export default function App() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', borderTop: '1px solid rgba(11, 48, 35, 0.08)', paddingTop: '20px' }}>
                 <h4 style={{ fontSize: '14px', fontWeight: '700', color: 'var(--primary-green)', letterSpacing: '0.05em' }}>PASSERELLE DE PAIEMENT SÉCURISÉE</h4>
                 
-                <div style={{ display: 'flex', gap: '15px', marginBottom: '10px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', marginBottom: '10px' }}>
                   <button 
                     type="button" 
                     className="btn-outline" 
-                    style={{ flex: 1, borderColor: paymentMethod === 'stripe' ? 'var(--primary-green)' : 'rgba(11, 48, 35, 0.2)', background: paymentMethod === 'stripe' ? 'rgba(11, 48, 35, 0.05)' : 'transparent' }}
-                    onClick={() => setPaymentMethod('stripe')}
-                  >
-                    <CreditCard size={16} style={{ marginRight: '8px' }} />
-                    Stripe / CB
-                  </button>
-                  <button 
-                    type="button" 
-                    className="btn-outline" 
-                    style={{ flex: 1, borderColor: paymentMethod === 'wave' ? 'var(--primary-green)' : 'rgba(11, 48, 35, 0.2)', background: paymentMethod === 'wave' ? 'rgba(11, 48, 35, 0.05)' : 'transparent' }}
+                    style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      gap: '6px', 
+                      padding: '10px 5px', 
+                      height: '80px',
+                      borderColor: paymentMethod === 'wave' ? 'var(--primary-green)' : 'rgba(11, 48, 35, 0.2)', 
+                      background: paymentMethod === 'wave' ? 'rgba(11, 48, 35, 0.05)' : 'transparent',
+                      borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}
                     onClick={() => setPaymentMethod('wave')}
                   >
-                    <Landmark size={16} style={{ marginRight: '8px' }} />
-                    Wave / Mobile
+                    <img src="/images/wave_logo.png" alt="Wave" style={{ height: '32px', objectFit: 'contain' }} />
+                    <span style={{ fontSize: '11px', fontWeight: '600' }}>Wave</span>
+                  </button>
+
+                  <button 
+                    type="button" 
+                    className="btn-outline" 
+                    style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      gap: '6px', 
+                      padding: '10px 5px', 
+                      height: '80px',
+                      borderColor: paymentMethod === 'orange' ? 'var(--primary-green)' : 'rgba(11, 48, 35, 0.2)', 
+                      background: paymentMethod === 'orange' ? 'rgba(11, 48, 35, 0.05)' : 'transparent',
+                      borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => setPaymentMethod('orange')}
+                  >
+                    <img src="/images/orange.png" alt="Orange Money" style={{ height: '32px', objectFit: 'contain' }} />
+                    <span style={{ fontSize: '11px', fontWeight: '600' }}>Orange</span>
+                  </button>
+
+                  <button 
+                    type="button" 
+                    className="btn-outline" 
+                    style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      gap: '6px', 
+                      padding: '10px 5px', 
+                      height: '80px',
+                      borderColor: paymentMethod === 'mtn_moov' ? 'var(--primary-green)' : 'rgba(11, 48, 35, 0.2)', 
+                      background: paymentMethod === 'mtn_moov' ? 'rgba(11, 48, 35, 0.05)' : 'transparent',
+                      borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => setPaymentMethod('mtn_moov')}
+                  >
+                    <img src="/images/MTN-CI.jpg" alt="MTN / Moov" style={{ height: '32px', objectFit: 'contain', borderRadius: '4px' }} />
+                    <span style={{ fontSize: '11px', fontWeight: '600' }}>MTN / Moov</span>
                   </button>
                 </div>
 
-                {paymentMethod === 'stripe' ? (
-                  <div style={{ background: 'white', padding: '16px', borderRadius: '8px', border: '1px solid rgba(11, 48, 35, 0.1)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div className="form-group">
-                      <label>Numéro de carte</label>
-                      <input type="text" required className="form-input" placeholder="4242 4242 4242 4242" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} />
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '10px' }}>
-                      <div className="form-group">
-                        <label>Expiration</label>
-                        <input type="text" required className="form-input" placeholder="MM/AA" value={cardExpiry} onChange={(e) => setCardExpiry(e.target.value)} />
-                      </div>
-                      <div className="form-group">
-                        <label>CVC</label>
-                        <input type="text" required className="form-input" placeholder="123" value={cardCvc} onChange={(e) => setCardCvc(e.target.value)} />
-                      </div>
-                    </div>
+                <div style={{ background: 'white', padding: '16px', borderRadius: '8px', border: '1px solid rgba(11, 48, 35, 0.1)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div className="form-group">
+                    <label>Numéro de Téléphone (Mobile Money)</label>
+                    <input type="text" required className="form-input" placeholder="+225 07 00 00 00 00" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} />
                   </div>
-                ) : (
-                  <div style={{ background: 'white', padding: '16px', borderRadius: '8px', border: '1px solid rgba(11, 48, 35, 0.1)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div className="form-group">
-                      <label>Numéro de Téléphone (Paiement Mobile)</label>
-                      <input type="text" required className="form-input" placeholder="+225 07 00 00 00 00" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} />
-                    </div>
-                    <p style={{ fontSize: '11px', opacity: 0.6 }}>Une notification de validation sera envoyée sur votre mobile Wave / Mobile Money.</p>
-                  </div>
-                )}
+                  <p style={{ fontSize: '12px', opacity: 0.8, color: 'var(--primary-green)', fontWeight: '500' }}>
+                    {paymentMethod === 'wave' && "Une notification Push sécurisée Wave sera envoyée sur votre mobile pour valider le paiement."}
+                    {paymentMethod === 'orange' && "Veuillez composer le *144*82# sur votre mobile Orange pour générer votre code de paiement temporaire."}
+                    {paymentMethod === 'mtn_moov' && "Veuillez valider la notification Push de retrait ou composer le *133# sur votre mobile."}
+                  </p>
+                </div>
               </div>
               
               <div style={{ borderTop: '1px solid rgba(11, 48, 35, 0.08)', paddingTop: '20px' }}>
