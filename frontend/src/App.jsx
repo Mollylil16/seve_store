@@ -632,16 +632,16 @@ export default function App() {
             {/* Product Cards Grid */}
             <div className="product-grid">
               {filteredProducts.map(p => {
-                let imgUrl = "https://images.unsplash.com/photo-1607006342411-92fc98c11093?auto=format&fit=crop&q=80&w=600";
+                let imgUrl = "/images/seve_soap.png";
                 const nameLower = p.nom.toLowerCase();
                 if (nameLower.includes('savon')) {
-                  imgUrl = "https://images.unsplash.com/photo-1607006342411-92fc98c11093?auto=format&fit=crop&q=80&w=600";
+                  imgUrl = "/images/seve_soap.png";
                 } else if (nameLower.includes('pommade') || nameLower.includes('baume')) {
-                  imgUrl = "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&q=80&w=600";
+                  imgUrl = "/images/seve_cream.png";
                 } else if (nameLower.includes('lotion') || nameLower.includes('lait')) {
-                  imgUrl = "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600";
+                  imgUrl = "/images/seve_lotion.png";
                 } else if (nameLower.includes('creme') || nameLower.includes('crème')) {
-                  imgUrl = "https://images.unsplash.com/photo-1608248597481-496100c80836?auto=format&fit=crop&q=80&w=600";
+                  imgUrl = "/images/seve_cream.png";
                 }
                 
                 const splitTitle = p.nom.split(' ');
