@@ -633,10 +633,15 @@ export default function App() {
             <div className="product-grid">
               {filteredProducts.map(p => {
                 let imgUrl = "https://images.unsplash.com/photo-1607006342411-92fc98c11093?auto=format&fit=crop&q=80&w=600";
-                if (p.nom.toLowerCase().includes('huile')) {
-                  imgUrl = "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600";
-                } else if (p.nom.toLowerCase().includes('baume')) {
+                const nameLower = p.nom.toLowerCase();
+                if (nameLower.includes('savon')) {
+                  imgUrl = "https://images.unsplash.com/photo-1607006342411-92fc98c11093?auto=format&fit=crop&q=80&w=600";
+                } else if (nameLower.includes('pommade') || nameLower.includes('baume')) {
                   imgUrl = "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&q=80&w=600";
+                } else if (nameLower.includes('lotion') || nameLower.includes('lait')) {
+                  imgUrl = "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600";
+                } else if (nameLower.includes('creme') || nameLower.includes('crème')) {
+                  imgUrl = "https://images.unsplash.com/photo-1608248597481-496100c80836?auto=format&fit=crop&q=80&w=600";
                 }
                 
                 const splitTitle = p.nom.split(' ');
