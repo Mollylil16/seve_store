@@ -529,33 +529,33 @@ export default function App() {
           <header className="hero-container">
             <div className="hero-content">
               <h1 className="hero-title">
-                Systèmes <span className="italic-word">Naturels</span>,<br />
-                Espaces de <span className="italic-word">Beauté.</span>
+                Haute <span className="italic-word">Cosmétique</span>,<br />
+                Soins pour <span className="italic-word">Tous.</span>
               </h1>
               <p className="hero-subtitle">
-                Une collection de soins botaniques composée selon des principes de conception systémique. Pureté chimique, rituel humain.
+                Des formulations botaniques d'exception : savons surgras, pommades protectrices, lotions actives et crèmes hydratantes. Conçus avec soin pour tous les âges (bébé, ado, adulte, senior), tous les genres (homme, femme) et tous les types de teints.
               </p>
               <div>
-                <a href="#boutique" className="btn-solid">EXPLORER LA COLLECTION</a>
+                <a href="#boutique" className="btn-solid">EXPLORER LES SOINS</a>
               </div>
             </div>
             
             <div className="hero-leaf-frame">
               <div 
                 className="leaf-shape-mask"
-                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80&w=800')` }}
+                style={{ backgroundImage: `url('/images/cosmetics_hero.png')` }}
               />
             </div>
           </header>
 
           {/* STOREFRONT & CATALOGUE SECTION */}
           <section className="collection-section" id="boutique">
-            <div className="collection-header">
+            <div className="collection-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', marginBottom: '40px', borderBottom: '1px solid rgba(11, 48, 35, 0.08)', paddingBottom: '20px' }}>
               <div>
-                <div className="collection-meta">SÉRIE 01 — LES ESSENTIELS</div>
-                <h2 className="collection-title">La Chimie Verte</h2>
+                <div className="collection-meta" style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.15em', color: 'var(--primary-green)', opacity: 0.8, marginBottom: '8px' }}>NOTRE CATALOGUE COSMÉTIQUE</div>
+                <h2 className="collection-title" style={{ fontSize: '42px', fontFamily: '"Cormorant Garamond", serif', fontWeight: '400', color: 'var(--primary-green)', lineHeight: 1.1 }}>Soins & Pureté Botanique</h2>
               </div>
-              <div className="collection-aside">Conçu pour le corps et l'esprit.</div>
+              <div className="collection-aside" style={{ fontSize: '13px', opacity: 0.6, fontStyle: 'italic', maxWidth: '300px', textAlign: 'right' }}>Formulations douces : savons surgras, pommades riches et lotions apaisantes.</div>
             </div>
 
             {/* Filters and Search Bar */}
@@ -692,32 +692,32 @@ export default function App() {
 
           {/* MANIFESTO BANNER */}
           <section className="manifesto-section" id="manifeste">
-            <div className="manifesto-left">
+             <div className="manifesto-left">
               <div className="manifesto-meta">NOTRE MANIFESTE</div>
               <h2 className="manifesto-title">
-                L'Équilibre <span>des Systèmes.</span>
+                La Beauté <span>Partagée.</span>
               </h2>
               <p className="manifesto-desc">
-                Nous croyons que la beauté n'est pas une surface, mais le résultat d'un système en harmonie. Chaque ingrédient est choisi pour sa fonction structurelle au sein de votre épiderme.
+                Nous croyons que le soin de la peau transcende les genres, les âges et les teints. Nos formulations botaniques pures respectent la physiologie cutanée de chacun : de la peau délicate des bébés aux exigences structurantes des peaux matures.
               </p>
             </div>
 
             <div className="manifesto-right">
               <div className="manifesto-feature">
                 <h4 className="feature-title">APPROVISIONNEMENT</h4>
-                <p className="feature-desc">Ingrédients sourcés localement en Provence, respectant les cycles de récolte saisonniers.</p>
+                <p className="feature-desc">Huiles et beurres végétaux d'excellence, extraits de plantes actifs issus de cultures durables.</p>
               </div>
               <div className="manifesto-feature">
                 <h4 className="feature-title">CONDITIONNEMENT</h4>
-                <p className="feature-desc">Verre ultra léger et papier kraft recyclé à 100%. Aucune trace plastique.</p>
+                <p className="feature-desc">Flacons en verre ambré protecteurs et papier kraft recyclable. Zéro déchet plastique.</p>
               </div>
               <div className="manifesto-feature">
                 <h4 className="feature-title">MÉTHODE</h4>
-                <p className="feature-desc">Saponification à froid pendant 6 semaines pour préserver les actifs végétaux.</p>
+                <p className="feature-desc">Saponification à froid et émulsions douces à basse température pour préserver les vitamines actives.</p>
               </div>
               <div className="manifesto-feature">
                 <h4 className="feature-title">VISION</h4>
-                <p className="feature-desc">Transformer l'hygiène quotidienne en un acte consciencieux de conception personnelle.</p>
+                <p className="feature-desc">Une cosmétique bienveillante et universelle : savons surgras, crèmes, pommades et lotions pour tous.</p>
               </div>
             </div>
           </section>
